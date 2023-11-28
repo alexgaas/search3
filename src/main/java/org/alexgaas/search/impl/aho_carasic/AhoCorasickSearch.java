@@ -6,10 +6,7 @@ import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
 import org.javatuples.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AhoCorasickSearch extends AbstractSearch {
 
@@ -17,38 +14,6 @@ public class AhoCorasickSearch extends AbstractSearch {
         super("AhoCarasic");
     }
 
-    // For testing purpose of AhoCarasic
-    @Override
-    public Pair<Integer, Integer> findFirst(String needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        AhoCorasick search = new AhoCorasick(new String[]{ needle });
-        var result = search.searchFirst(haystack);
-        var resultAsPair = new Pair<>(result - needle.length() + 1, result + 1);
-
-        System.out.println("Method took: " + timer.stop());
-
-        return resultAsPair;
-    }
-
-    // For testing purpose of AhoCarasic
-    @Override
-    public SearchResult.SearchResultEntry findFirst(String[] needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        AhoCorasick search = new AhoCorasick(needle);
-        var result = search.searchAllPatternsFirst(haystack);
-
-        var startIndex = result.getValue1() - result.getValue0().length() + 1;
-        var endIndex = result.getValue1() + 1;
-        var searchResult = new SearchResult.SearchResultEntry(result.getValue0(), startIndex, endIndex);
-
-        System.out.println("Method took: " + timer.stop());
-
-        return searchResult;
-    }
-
-    // For prod usage and evaluation
     @Override
     public SearchResult find(SearchInput input) {
         Stopwatch timer = Stopwatch.createStarted();
@@ -67,8 +32,7 @@ public class AhoCorasickSearch extends AbstractSearch {
                         p.getValue0(), startIndex, endIndex));
             }
         }
-
-        return new SearchResult(list, timer.stop());
+        return new SearchResult(sortResultsByPatternOrder(input, list), timer.stop());
     }
 }
 

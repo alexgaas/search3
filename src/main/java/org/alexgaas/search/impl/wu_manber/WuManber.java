@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /*
 Wu-Manber algorithm explanation:
@@ -78,115 +79,19 @@ public class WuManber implements Search {
     }
 
     public Integer searchFirst(String text) {
-        int text_length = text.length();
-        while (pos <= text_length){
-            String bgram = text.substring(pos - B, pos);
-            var shift = shiftMap.get(bgram);
-            if (shift != null){
-                if (shift == 0){
-                    pos += 1;
-                    for(int index: hash.get(bgram)){
-                        String str = patterns[index];
-                        int foundPos = pos - str.length() - 1;
-
-                        int k = 0;
-                        while(k < str.length()){
-                            if (str.charAt(k) != text.charAt(foundPos + k)) {
-                                break;
-                            }
-                            k++;
-                        }
-                        if (k == str.length()){
-                            return foundPos;
-                        }
-                    }
-                }
-                else {
-                    pos += shift;
-                }
-            }
-            else {
-                pos += lMin - B + 1;
-            }
-        }
-
-        return -1;
+        var result = search(text);
+        return !result.isEmpty() ? result.get(0) : -1;
     }
 
     @Override
     public List<Integer> search(String text) {
-        List<Integer> matches = new ArrayList<>();
-
-        int text_length = text.length();
-        while (pos <= text_length){
-            String bgram = text.substring(pos - B, pos);
-            var shift = shiftMap.get(bgram);
-            if (shift != null){
-                if (shift == 0){
-                    pos += 1;
-                    for(int index: hash.get(bgram)){
-                        String str = patterns[index];
-                        int foundPos = pos - str.length() - 1;
-
-                        int k = 0;
-                        while(k < str.length()){
-                            if (str.charAt(k) != text.charAt(foundPos + k)) {
-                                break;
-                            }
-                            k++;
-                        }
-                        if (k == str.length()){
-                            matches.add(foundPos);
-                        }
-                    }
-                }
-                else {
-                    pos += shift;
-                }
-            }
-            else {
-                pos += lMin - B + 1;
-            }
-        }
-        
-        return matches;
+        return searchAllPatterns(text).stream().map(Pair::getValue1).collect(Collectors.toList());
     }
 
     @Override
     public Pair<String, Integer> searchAllPatternsFirst(String text) {
-        int text_length = text.length();
-        while (pos <= text_length){
-            String bgram = text.substring(pos - B, pos);
-            var shift = shiftMap.get(bgram);
-            if (shift != null){
-                if (shift == 0){
-                    pos += 1;
-                    for(int index: hash.get(bgram)){
-                        String str = patterns[index];
-                        int foundPos = pos - str.length() - 1;
-
-                        int k = 0;
-                        while(k < str.length()){
-                            if (str.charAt(k) != text.charAt(foundPos + k)) {
-                                break;
-                            }
-                            k++;
-                        }
-                        if (k == str.length()){
-                            return new Pair<>(str, foundPos);
-                        }
-                    }
-                }
-                else {
-                    pos += shift;
-                }
-            }
-            else {
-                pos += lMin - B + 1;
-            }
-        }
-
-        return null;
+        var result = searchAllPatterns(text);
+        return !result.isEmpty() ? result.get(0) : null;
     }
 
     @Override

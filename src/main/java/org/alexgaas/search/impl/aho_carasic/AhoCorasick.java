@@ -5,6 +5,7 @@ import org.javatuples.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 Aho–Corasick algorithm explanation:
@@ -45,49 +46,17 @@ class AhoCorasick implements Search {
     }
 
     public Integer searchFirst(String text) {
-        Node currentNode = root;
-        for (int i = 0; i < text.length(); i++) {
-            int charIndex = text.charAt(i);
-            currentNode = currentNode.children[charIndex];
-            if (currentNode == null) {
-                currentNode = root;
-            }
-            if (currentNode.isPattern) {
-                return i;
-            }
-        }
-        return -1;
+        var result = search(text);
+        return !result.isEmpty() ? result.get(0) : -1;
     }
 
     public List<Integer> search(String text) {
-        List<Integer> matches = new ArrayList<>();
-        Node currentNode = root;
-        for (int i = 0; i < text.length(); i++) {
-            int charIndex = text.charAt(i);
-            currentNode = currentNode.children[charIndex];
-            if (currentNode == null) {
-                currentNode = root;
-            }
-            if (currentNode.isPattern) {
-                matches.add(i);
-            }
-        }
-        return matches;
+        return searchAllPatterns(text).stream().map(Pair::getValue1).collect(Collectors.toList());
     }
 
     public Pair<String,Integer> searchAllPatternsFirst(String text) {
-        Node currentNode = root;
-        for (int i = 0; i < text.length(); i++) {
-            int charIndex = text.charAt(i);
-            currentNode = currentNode.children[charIndex];
-            if (currentNode == null) {
-                currentNode = root;
-            }
-            if (currentNode.isPattern) {
-                return new Pair<>(currentNode.patternValue, i);
-            }
-        }
-        return null;
+        var result = searchAllPatterns(text);
+        return !result.isEmpty() ? result.get(0) : null;
     }
 
     public List<Pair<String,Integer>> searchAllPatterns(String text) {

@@ -2,6 +2,7 @@ package org.alexgaas.search.impl.wu_manber;
 
 import com.google.common.base.Stopwatch;
 import org.alexgaas.search.AbstractSearch;
+import org.alexgaas.search.SearchProvider;
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
 import org.javatuples.Pair;
@@ -15,36 +16,6 @@ public class WuManberSearch extends AbstractSearch {
     public WuManberSearch() {
         super("WuManber");
     }
-
-    @Override
-    public Pair<Integer, Integer> findFirst(String needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        WuManber search = new WuManber(new String[]{ needle });
-        var point = search.searchFirst(haystack);
-        var resultAsPair = new Pair<>(point, point + needle.length());
-
-        System.out.println("Method took: " + timer.stop());
-
-        return resultAsPair;
-    }
-
-    @Override
-    public SearchResult.SearchResultEntry findFirst(String[] needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        WuManber search = new WuManber(needle);
-        var result = search.searchAllPatternsFirst(haystack);
-
-        var startIndex = result.getValue1();
-        var endIndex = result.getValue1() + result.getValue0().length();
-        var searchResult = new SearchResult.SearchResultEntry(result.getValue0(), startIndex, endIndex);
-
-        System.out.println("Method took: " + timer.stop());
-
-        return searchResult;
-    }
-
 
     @Override
     public SearchResult find(SearchInput input) {
@@ -65,6 +36,6 @@ public class WuManberSearch extends AbstractSearch {
             }
         }
 
-        return new SearchResult(list, timer.stop());
+        return new SearchResult(sortResultsByPatternOrder(input, list), timer.stop());
     }
 }

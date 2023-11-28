@@ -16,38 +16,6 @@ public class HorspoolSearch extends AbstractSearch {
         super("Harspool");
     }
 
-    // For testing purpose of Horspool
-    @Override
-    public Pair<Integer, Integer> findFirst(String needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        Horspool search = new Horspool(new String[]{ needle });
-        var point = search.searchFirst(haystack);
-        var resultAsPair = new Pair<>(point, point + needle.length());
-
-        System.out.println("Method took: " + timer.stop());
-
-        return resultAsPair;
-    }
-
-    // For testing purpose of Horspool
-    @Override
-    public SearchResult.SearchResultEntry findFirst(String[] needle, String haystack) {
-        Stopwatch timer = Stopwatch.createStarted();
-
-        Horspool search = new Horspool(needle);
-        var result = search.searchAllPatternsFirst(haystack);
-
-        var startIndex = result.getValue1();
-        var endIndex = result.getValue1() + result.getValue0().length();
-        var searchResult = new SearchResult.SearchResultEntry(result.getValue0(), startIndex, endIndex);
-
-        System.out.println("Method took: " + timer.stop());
-
-        return searchResult;
-    }
-
-    // For prod usage and evaluation
     @Override
     public SearchResult find(SearchInput input) {
         Stopwatch timer = Stopwatch.createStarted();
@@ -67,6 +35,6 @@ public class HorspoolSearch extends AbstractSearch {
             }
         }
 
-        return new SearchResult(list, timer.stop());
+        return new SearchResult(sortResultsByPatternOrder(input, list), timer.stop());
     }
 }

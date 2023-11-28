@@ -1,9 +1,9 @@
-package search;
+package search.unit;
 
 import org.alexgaas.search.SearchProvider;
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
-import org.alexgaas.search.impl.wu_manber.WuManberSearch;
+import org.alexgaas.search.impl.horspool.HorspoolSearch;
 import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WuManberSearchTest {
+public class HorspoolSearchTest {
     @Test
     void findFirstBasicTest(){
         String needle = "announce";
         String haystack = "cpmxannualxconferencexannounce";
 
-        WuManberSearch searchProvider = new WuManberSearch();
+        HorspoolSearch searchProvider = new HorspoolSearch();
         Pair<Integer, Integer> result = searchProvider.findFirst(needle, haystack);
         assertEquals(haystack.substring(result.getValue0(), result.getValue1()), needle);
     }
@@ -27,7 +27,7 @@ public class WuManberSearchTest {
         String[] needle = {"announce", "cpm"};
         String haystack = "cpmxannualxconferencexannounce";
 
-        WuManberSearch searchProvider = new WuManberSearch();
+        HorspoolSearch searchProvider = new HorspoolSearch();
 
         SearchResult.SearchResultEntry entry = searchProvider.findFirst(needle, haystack);
 
@@ -46,7 +46,7 @@ public class WuManberSearchTest {
         String[] needle = {"announce", "cpm"};
         String haystack = "cpmxannualxconferencexannounce";
 
-        SearchProvider searchProvider = new WuManberSearch();
+        SearchProvider searchProvider = new HorspoolSearch();
         SearchResult result = searchProvider.find(new SearchInput(needle, haystack));
 
         SearchResult.SearchResultEntry entry = result.searchResultEntryList.get(0);

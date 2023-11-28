@@ -1,4 +1,4 @@
-package search;
+package search.unit;
 
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AhoCarasicSearchTest {
+public class AhoCarasickSearchTest {
     @Test
     void findFirstBasicTest(){
         String needle = "announce";
