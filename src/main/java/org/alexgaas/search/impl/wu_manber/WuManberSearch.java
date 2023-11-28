@@ -1,0 +1,70 @@
+package org.alexgaas.search.impl.wu_manber;
+
+import com.google.common.base.Stopwatch;
+import org.alexgaas.search.AbstractSearch;
+import org.alexgaas.search.domain.SearchInput;
+import org.alexgaas.search.domain.SearchResult;
+import org.javatuples.Pair;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+public class WuManberSearch extends AbstractSearch {
+    public WuManberSearch() {
+        super("WuManber");
+    }
+
+    @Override
+    public Pair<Integer, Integer> findFirst(String needle, String haystack) {
+        Stopwatch timer = Stopwatch.createStarted();
+
+        WuManber search = new WuManber(new String[]{ needle });
+        var point = search.searchFirst(haystack);
+        var resultAsPair = new Pair<>(point, point + needle.length());
+
+        System.out.println("Method took: " + timer.stop());
+
+        return resultAsPair;
+    }
+
+    @Override
+    public SearchResult.SearchResultEntry findFirst(String[] needle, String haystack) {
+        Stopwatch timer = Stopwatch.createStarted();
+
+        WuManber search = new WuManber(needle);
+        var result = search.searchAllPatternsFirst(haystack);
+
+        var startIndex = result.getValue1();
+        var endIndex = result.getValue1() + result.getValue0().length();
+        var searchResult = new SearchResult.SearchResultEntry(result.getValue0(), startIndex, endIndex);
+
+        System.out.println("Method took: " + timer.stop());
+
+        return searchResult;
+    }
+
+
+    @Override
+    public SearchResult find(SearchInput input) {
+        Stopwatch timer = Stopwatch.createStarted();
+
+        List<SearchResult.SearchResultEntry> list = new ArrayList<>();
+
+        WuManber search = new WuManber(input.needle);
+        var result = search.searchAllPatterns(input.haystack);
+        for(Pair<String, Integer> p: result){
+            var foundPattern = Arrays.stream(input.needle).parallel().filter(
+                    n -> Objects.equals(n, p.getValue0())).findFirst();
+            if (foundPattern.isPresent()){
+                var startIndex = p.getValue1();
+                var endIndex = p.getValue1() + p.getValue0().length();
+                list.add(new SearchResult.SearchResultEntry(
+                        p.getValue0(), startIndex, endIndex));
+            }
+        }
+
+        return new SearchResult(list, timer.stop());
+    }
+}
