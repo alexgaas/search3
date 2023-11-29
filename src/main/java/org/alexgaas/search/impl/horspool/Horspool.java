@@ -27,6 +27,7 @@ while pos ≤ n − m do
     pos = pos + d[tpos+m];
  */
 class Horspool implements Search {
+    private static final int UnicodeSymbols = 2097152;
     private final String[] patterns;
 
     public Horspool(String[] patterns) {
@@ -98,7 +99,7 @@ class Horspool implements Search {
     private static HashMap<Character, Integer> hashOf(String needle, int pattenLength) {
         HashMap<Character,Integer> hashmap = new HashMap<>();
 
-        for(int i = 0; i < 256; i++) {
+        for(int i = 0; i < UnicodeSymbols; i++) {
             hashmap.put((char)i, pattenLength);
         }
 

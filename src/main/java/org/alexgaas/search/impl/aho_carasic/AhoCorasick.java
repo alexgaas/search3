@@ -13,13 +13,15 @@ Aho–Corasick algorithm explanation:
  */
 class AhoCorasick implements Search {
 
+    private static final int UnicodeSymbols = 2097152;
+
     private static class Node {
         private final Node[] children;
         private boolean isPattern;
         private String patternValue;
 
         public Node() {
-            children = new Node[256];
+            children = new Node[UnicodeSymbols];
             isPattern = false;
         }
     }

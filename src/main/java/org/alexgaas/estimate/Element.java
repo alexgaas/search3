@@ -39,7 +39,8 @@ public class Element {
         if (adjustedCount() < 2)
             return adjustedCount() - 1 + running_count;
 
-        // or just use Random() from standard lib
+        // Pcg have been used for fastest evaluation
+        // (or just use Random() from standard lib if performance does not matter to you)
         return mean() + PcgRSUFast.nextGaussian() * sigma();
     }
 }

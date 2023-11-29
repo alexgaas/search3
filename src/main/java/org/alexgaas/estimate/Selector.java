@@ -29,7 +29,6 @@ public class Selector {
         Stopwatch watch = Stopwatch.createStarted();
 
         // execute function
-
         SearchResult result = implementations.get(id).apply(input);
 
         watch.stop();
