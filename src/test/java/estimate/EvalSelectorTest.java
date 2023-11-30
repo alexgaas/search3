@@ -30,7 +30,7 @@ public class EvalSelectorTest {
         selector.registerImplementation(wuManberSearch::find);
     }
 
-    @RepeatedTest(20)
+    @RepeatedTest(100)
     void basicEvaluationTest(){
         String[] needle = {"announce", "cpm"};
         String haystack = "cpmxannualxconferencexannounce";

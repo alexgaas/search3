@@ -25,7 +25,7 @@ public class EvalSelector {
         SearchResult result = implementations.get(id).apply(input);
         watch.stop();
 
-        stat.Complete(id, watch.elapsed().getSeconds(), 1);
+        stat.Complete(id, watch.elapsed().getNano(), 1);
 
         return result;
     }

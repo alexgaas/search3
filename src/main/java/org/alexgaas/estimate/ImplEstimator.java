@@ -1,7 +1,6 @@
 package org.alexgaas.estimate;
 
 import com.github.kilianB.pcg.fast.PcgRSUFast;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +26,12 @@ public class ImplEstimator {
             return mean() / Math.sqrt(adjustedCount());
         }
 
-        @VisibleForTesting
-        public void run()
+        void run()
         {
             ++running_count;
         }
 
-        @VisibleForTesting
-        public void complete(double seconds, double items)
+        void complete(double seconds, double items)
         {
             --running_count;
             ++completed_count;
@@ -42,8 +39,7 @@ public class ImplEstimator {
                 sum += seconds / items;
         }
 
-        @VisibleForTesting
-        public double sample () {
+        double sample () {
             /// If there is a variant with not enough statistics, always choose it.
             /// And in that case prefer variant with lesser number of invocations.
             if (adjustedCount() < 2)
