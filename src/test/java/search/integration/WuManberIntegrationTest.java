@@ -2,7 +2,6 @@ package search.integration;
 
 import org.alexgaas.search.SearchProvider;
 import org.alexgaas.search.domain.SearchInput;
-import org.alexgaas.search.impl.horspool.HorspoolSearch;
 import org.alexgaas.search.impl.wu_manber.WuManberSearch;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

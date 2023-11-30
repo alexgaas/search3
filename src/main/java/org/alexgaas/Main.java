@@ -1,7 +1,6 @@
 package org.alexgaas;
 
 import java.io.IOException;
-import org.alexgaas.estimate.Selector;
 
 public class Main {
     public static void main(String[] args) throws IOException {

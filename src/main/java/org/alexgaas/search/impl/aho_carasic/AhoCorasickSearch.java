@@ -5,6 +5,8 @@ import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
 import org.javatuples.Pair;
 
+import java.util.function.Function;
+
 public class AhoCorasickSearch extends AbstractSearch {
 
     public AhoCorasickSearch(){

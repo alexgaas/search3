@@ -8,40 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class Selector {
-    private final Estimator stat;
+public class EvalSelector {
+    private final ImplEstimator stat;
     private final List<Function<SearchInput, SearchResult>> implementations;
 
-    public Selector(){
-        this.stat = new Estimator(new ArrayList<>());
+    public EvalSelector(){
+        this.stat = new ImplEstimator();
         this.implementations = new ArrayList<>();
-    }
-    public Selector(Estimator stat, List<Function<SearchInput, SearchResult>> implementations) {
-        this.stat = stat;
-        this.implementations = implementations;
     }
 
     public SearchResult SelectAndExecute(SearchInput input){
-        // might be added any expression here
-        Boolean considerable = true;
-
-        int id = stat.Select(considerable);
+        int id = stat.Select();
         Stopwatch watch = Stopwatch.createStarted();
 
         // execute function
         SearchResult result = implementations.get(id).apply(input);
-
         watch.stop();
-        if (considerable)
-        {
-            stat.Complete(id, watch.elapsed().getSeconds(), 1000);
-        }
+
+        stat.Complete(id, watch.elapsed().getSeconds(), 1);
 
         return result;
     }
 
-    void registerImplementation(Function<SearchInput, SearchResult> func){
+    public void registerImplementation(Function<SearchInput, SearchResult> func){
         // register implementation
         implementations.add(func);
+        stat.emplaceStatData();
     }
 }

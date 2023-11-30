@@ -4,7 +4,6 @@ import com.google.common.base.Stopwatch;
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
 import org.alexgaas.search.impl.Search;
-import org.alexgaas.search.impl.wu_manber.WuManber;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;
@@ -23,8 +22,6 @@ public abstract class AbstractSearch implements SearchProvider {
     protected abstract Integer getStartIndex(Pair<String, Integer> pair);
 
     protected abstract Integer getEndIndex(Pair<String, Integer> pair);
-
-    protected Function<SearchInput, SearchResult> findRef = this::find;
 
     public Pair<Integer, Integer> findFirst(String needle, String haystack) {
         var result = findFirst(new String[]{needle}, haystack);
@@ -53,7 +50,7 @@ public abstract class AbstractSearch implements SearchProvider {
             }
         }
 
-        return new SearchResult(sortResultsByPatternOrder(input, list), timer.stop());
+        return new SearchResult(searchId, sortResultsByPatternOrder(input, list), timer.stop());
     }
 
     public List<SearchResult.SearchResultEntry> sortResultsByPatternOrder(SearchInput input, List<SearchResult.SearchResultEntry> list){

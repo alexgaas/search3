@@ -18,11 +18,14 @@ public class SearchResult {
         }
     }
 
+    public String searchId;
+
     public Stopwatch stat;
 
     public List<SearchResultEntry> searchResultEntryList;
 
-    public SearchResult(List<SearchResultEntry> searchResultEntryList, Stopwatch stat){
+    public SearchResult(String searchId, List<SearchResultEntry> searchResultEntryList, Stopwatch stat){
+        this.searchId = searchId;
         this.searchResultEntryList = searchResultEntryList;
         this.stat = stat;
     }
