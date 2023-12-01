@@ -58,7 +58,7 @@ public class ImplEstimator {
                 return adjustedCount() - 1 + running_count;
 
             /*
-                Pcg have been used for fastest evaluation - see results on this Github page:
+                Pcg have been used for fastest random generation - see results on this Github page:
                 https://github.com/KilianB/pcg-java
                 (or just use Random() from standard lib if performance does not matter to you)
              */
