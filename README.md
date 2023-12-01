@@ -20,9 +20,24 @@ Search algorithms have been implemented manually without any third-party library
 sections accordingly.
 
 ## Explanation
+Score evaluation implementation located in package `src/main/java/org/alexgaas/estimate`:
+
+- internal class **ImplEstimator** which performs _select / complete / emplace_ operations:
+_src/main/java/org/alexgaas/estimate/ImplEstimator.java_
+- public class **EvalSelector** provides public _contract to call evaluation_ based on **ImplEstimator**:
+_src/main/java/org/alexgaas/estimate/EvalSelector.java_
+
 **WIP**
 
 ## Results
+Testing been performed on Britannica data corpus - https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/
+
+Results of evaluation can be found over running unit and integration tests:
+- **_test/java/search_** folder includes **unit** and **integration** tests for 
+_Aho-Carasic, Horspool, Wu-Manber_ search algoirthms
+- Evaluation tests using [EvalSelector] with registered implementations of search algorithms
+for estimatation are located in **_test/java/estimate_** folder
+
 **WIP**
 
 ## TODO

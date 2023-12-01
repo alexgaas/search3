@@ -5,7 +5,7 @@ import com.github.kilianB.pcg.fast.PcgRSUFast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImplEstimator {
+class ImplEstimator {
 
     public static class Element {
         int completed_count = 0;
@@ -105,8 +105,5 @@ public class ImplEstimator {
 
     int size() {
         return data.size();
-    }
-    Boolean empty() {
-        return size() == 0;
     }
 }
