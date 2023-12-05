@@ -27,16 +27,152 @@ _src/main/java/org/alexgaas/estimate/ImplEstimator.java_
 - public class **EvalSelector** provides public _contract to call evaluation_ based on **ImplEstimator**:
 _src/main/java/org/alexgaas/estimate/EvalSelector.java_
 
-**WIP**
+As been said, Bayesian Bandit stranger can be implemented over 3 steps: 
+
+#### Step 1 - choose method randomly to start.
+For this implementation I've used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
+The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs.
 
 ## Results
 Testing been performed on Britannica data corpus - https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/
 
 Results of evaluation can be found over running unit and integration tests:
 - **_test/java/search_** folder includes **unit** and **integration** tests for 
-_Aho-Carasic, Horspool, Wu-Manber_ search algoirthms
+_Aho-Carasic, Horspool, Wu-Manber_ search algorithms
 - Evaluation tests using [EvalSelector] with registered implementations of search algorithms
-for estimatation are located in **_test/java/estimate_** folder
+for estimation are located in **_test/java/estimate_** folder
+
+#### Evaluation test of _Aho-Carasic, Horspool, Wu-Manber_ search algorithms (20 repetitions):
+
+_Basic test - search in one line by two patterns_:
+
+_Patterns_: **announce, cpm**
+
+_Text to search in_: **cpmxannualxconferencexannounce**
+<details open>
+<summary>Results:</summary>
+
+```text
+[AhoCarasic]: 23.70 ms
+[Harspool]: 133.2 ms
+[WuManber]: 1.285 ms
+[AhoCarasic]: 3.032 ms
+[Harspool]: 73.04 ms
+[WuManber]: 1.258 ms
+[AhoCarasic]: 3.108 ms
+[Harspool]: 92.81 ms
+[WuManber]: 138.7 μs
+[AhoCarasic]: 932.0 μs
+[Harspool]: 84.87 ms
+[WuManber]: 838.4 μs
+[WuManber]: 173.0 μs
+[WuManber]: 864.9 μs
+[WuManber]: 141.5 μs
+[WuManber]: 539.8 μs
+[WuManber]: 154.0 μs
+[WuManber]: 1.801 ms
+[WuManber]: 93.04 μs
+[WuManber]: 1.387 ms
+```
+</details>
+
+_Test - search in one file (4MB of UTF text) by three patterns_:
+
+_Patterns_: **ENCYCLOPEDIA, BRITANNICA, ENCYCLOPEDIA BRITANNICA**
+
+_Text to search in_: `src/test/resources/text/144133901.txt`
+<details open>
+<summary>Results:</summary>
+
+```text
+[AhoCarasic]: 80.02 ms
+[Harspool]: 181.1 ms
+[WuManber]: 40.10 ms
+[AhoCarasic]: 25.17 ms
+[Harspool]: 133.1 ms
+[WuManber]: 30.16 ms
+[AhoCarasic]: 11.91 ms
+[Harspool]: 129.5 ms
+[WuManber]: 25.75 ms
+[AhoCarasic]: 8.383 ms
+[Harspool]: 124.3 ms
+[WuManber]: 18.21 ms
+[WuManber]: 15.62 ms
+[Harspool]: 126.4 ms
+[AhoCarasic]: 7.960 ms
+[WuManber]: 12.16 ms
+[WuManber]: 11.08 ms
+[WuManber]: 12.14 ms
+[WuManber]: 22.43 ms
+[WuManber]: 10.96 ms
+```
+</details>
+
+_Test - search in 20 files (5MB of UTF text each) by one pattern_:
+
+_Patterns_: **it**
+
+_Text to search in folder_: `src/test/resources/text/`
+<details open>
+<summary>Results:</summary>
+
+```text
+[AhoCarasic]: 691.9 ms
+[Harspool]: 53.64 ms
+[WuManber]: 1.987 s
+[AhoCarasic]: 353.8 ms
+[Harspool]: 34.65 ms
+[WuManber]: 1.537 s
+[AhoCarasic]: 336.9 ms
+[Harspool]: 32.41 ms
+[WuManber]: 1.443 s
+[AhoCarasic]: 355.4 ms
+[Harspool]: 28.66 ms
+[AhoCarasic]: 336.4 ms
+[WuManber]: 1.423 s
+[Harspool]: 42.18 ms
+[Harspool]: 33.66 ms
+[WuManber]: 1.484 s
+[Harspool]: 31.76 ms
+[Harspool]: 30.28 ms
+[Harspool]: 29.74 ms
+[Harspool]: 29.66 ms
+```
+</details>
+
+_Test - search in 20 files (5MB of UTF text each) by ten patterns_:
+
+_Patterns_: **it,different,determined,may,metallic,compreffed body,fubclavian,fire,aluminous,got**
+
+_Text to search in folder_: `src/test/resources/text/`
+<details open>
+<summary>Results:</summary>
+
+```text
+[AhoCarasic]: 6.069 s
+[Harspool]: 375.3 ms
+[WuManber]: 4.218 s
+[AhoCarasic]: 3.491 s
+[Harspool]: 312.8 ms
+[WuManber]: 3.684 s
+[AhoCarasic]: 3.466 s
+[Harspool]: 315.6 ms
+[WuManber]: 4.090 s
+[AhoCarasic]: 3.539 s
+[Harspool]: 309.3 ms
+[WuManber]: 3.415 s
+[WuManber]: 3.718 s
+[AhoCarasic]: 3.628 s
+[Harspool]: 311.9 ms
+[Harspool]: 312.1 ms
+[WuManber]: 3.604 s
+[Harspool]: 310.9 ms
+[AhoCarasic]: 3.494 s
+[WuManber]: 3.546 s
+```
+</details>
+
+## Summary of results
 
 **WIP**
 
@@ -55,8 +191,15 @@ but that could be more effective using **_rsdtsc_** for x86/x64 (look this packa
 or _cntvct_el0_ for arm64 M1/M2 (discussion is here - https://stackoverflow.com/questions/40454157/is-there-an-equivalent-instruction-to-rdtsc-in-arm)
 with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
 
-- For randomization have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
-
+- For normal distribution of random numbers have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
+```
+/*
+    Pcg have been used for fastest random generation - see results on this Github page:
+    https://github.com/KilianB/pcg-java
+    (or just use Random() from standard lib if performance does not matter to you)
+ */
+return mean() + PcgRSUFast.nextGaussian() * sigma();
+```
 This port provides much better performance (three times faster) than `Random` class from standard JDK library, but could even
 faster using **JVMCI**.
 

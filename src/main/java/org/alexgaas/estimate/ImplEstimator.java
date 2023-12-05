@@ -41,12 +41,12 @@ class ImplEstimator {
             ++running_count;
         }
 
-        void complete(double seconds)
+        void complete(double nanos)
         {
             --running_count;
             ++completed_count;
             if (adjustedCount() > 0)
-                sum += seconds;
+                sum += nanos;
         }
 
         double sample () {
@@ -74,7 +74,7 @@ class ImplEstimator {
 
     public int Select(){
         // To not start evaluation process if there is only one variant to measure
-        if (size() < 2)
+        if (size() == 1)
             return 0;
 
         // you may protect this section by mutex for parallel execution
@@ -91,12 +91,12 @@ class ImplEstimator {
         return best;
     }
 
-    public void Complete(int id, double seconds){
-        if (size() < 2)
+    public void Complete(int id, double nanos){
+        if (size() == 1)
             return;
 
         // you may protect [complete] by mutex for parallel execution
-        data.get(id).complete(seconds);
+        data.get(id).complete(nanos);
     }
 
     public void emplaceStatData(){
