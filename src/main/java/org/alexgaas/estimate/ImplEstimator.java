@@ -3,7 +3,9 @@ package org.alexgaas.estimate;
 import com.github.kilianB.pcg.fast.PcgRSUFast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class ImplEstimator {
 
@@ -68,6 +70,8 @@ class ImplEstimator {
 
     private final List<Element> data;
 
+    private Map<Integer, Double> samplingMap;
+
     public ImplEstimator(){
         this.data = new ArrayList<>();
     }
@@ -77,11 +81,16 @@ class ImplEstimator {
         if (size() == 1)
             return 0;
 
+        this.samplingMap = new HashMap<>();
         // you may protect this section by mutex for parallel execution
         int best = 0;
         double best_sample = data.get(0).sample();
+        samplingMap.put(0, best_sample);
+
         for (int i = 1; i < data.size(); ++i) {
             double sample = data.get(i).sample();
+            samplingMap.put(i, sample);
+
             if (sample < best_sample) {
                 best_sample = sample;
                 best = i;
@@ -106,4 +115,6 @@ class ImplEstimator {
     int size() {
         return data.size();
     }
+
+    Map<Integer, Double> SamplingMap() { return samplingMap; }
 }

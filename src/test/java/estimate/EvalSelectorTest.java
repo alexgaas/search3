@@ -7,12 +7,15 @@ import org.alexgaas.search.domain.SearchResult;
 import org.alexgaas.search.impl.aho_carasic.AhoCorasickSearch;
 import org.alexgaas.search.impl.horspool.HorspoolSearch;
 import org.alexgaas.search.impl.wu_manber.WuManberSearch;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -32,6 +35,20 @@ public class EvalSelectorTest {
         selector.registerImplementation(ahoCorasickSearch::find);
         selector.registerImplementation(horspoolSearch::find);
         selector.registerImplementation(wuManberSearch::find);
+    }
+
+    @AfterAll
+    static void done(){
+        assertNotNull(selector.GetSamplingList());
+
+        System.out.println();
+
+        int i = 0;
+        for(Map<Integer, Double> map: selector.GetSamplingList()){
+            // to get sampling (as normal distribution) per search type
+            // comment if you do not need this output
+            System.out.println(i++ + "\t" + map.get(0));
+        }
     }
 
     @RepeatedTest(100)

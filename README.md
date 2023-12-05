@@ -33,6 +33,22 @@ As been said, Bayesian Bandit stranger can be implemented over 3 steps:
 For this implementation I've used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
 The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs.
 
+Simplest plot for a normal distribution looks like:
+
+<img src="./plots/Norm.png" width="300">
+
+<details>
+<summary>R snippet to plot simplest normal distribution</summary>
+
+```R
+#install (if not already installed) and load ggplot2
+if(!(require(ggplot2))){install.packages('ggplot2')}
+#generate a normal distribution plot
+ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+stat_function(fun = dnorm)
+```
+</details>
+
 ## Results
 Testing been performed on Britannica data corpus - https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/
 
@@ -49,7 +65,7 @@ _Basic test - search in one line by two patterns_:
 _Patterns_: **announce, cpm**
 
 _Text to search in_: **cpmxannualxconferencexannounce**
-<details open>
+<details>
 <summary>Results:</summary>
 
 ```text
@@ -81,7 +97,7 @@ _Test - search in one file (4MB of UTF text) by three patterns_:
 _Patterns_: **ENCYCLOPEDIA, BRITANNICA, ENCYCLOPEDIA BRITANNICA**
 
 _Text to search in_: `src/test/resources/text/144133901.txt`
-<details open>
+<details>
 <summary>Results:</summary>
 
 ```text
@@ -113,7 +129,7 @@ _Test - search in 20 files (5MB of UTF text each) by one pattern_:
 _Patterns_: **it**
 
 _Text to search in folder_: `src/test/resources/text/`
-<details open>
+<details>
 <summary>Results:</summary>
 
 ```text
@@ -145,7 +161,7 @@ _Test - search in 20 files (5MB of UTF text each) by ten patterns_:
 _Patterns_: **it,different,determined,may,metallic,compreffed body,fubclavian,fire,aluminous,got**
 
 _Text to search in folder_: `src/test/resources/text/`
-<details open>
+<details>
 <summary>Results:</summary>
 
 ```text
