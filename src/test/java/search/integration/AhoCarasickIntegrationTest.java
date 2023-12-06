@@ -2,7 +2,7 @@ package search.integration;
 
 import org.alexgaas.search.SearchProvider;
 import org.alexgaas.search.domain.SearchInput;
-import org.alexgaas.search.impl.aho_carasic.AhoCorasickSearch;
+import org.alexgaas.search.impl.aho_carasick.AhoCorasickSearch;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

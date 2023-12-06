@@ -1,16 +1,14 @@
-package org.alexgaas.search.impl.aho_carasic;
+package org.alexgaas.search.impl.aho_carasick;
 
 import org.alexgaas.search.AbstractSearch;
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
 import org.javatuples.Pair;
 
-import java.util.function.Function;
-
 public class AhoCorasickSearch extends AbstractSearch {
 
     public AhoCorasickSearch(){
-        super("AhoCarasic");
+        super("AhoCarasick");
     }
 
     @Override

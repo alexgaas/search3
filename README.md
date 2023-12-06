@@ -27,9 +27,8 @@ _src/main/java/org/alexgaas/estimate/ImplEstimator.java_
 - public class **EvalSelector** provides public _contract to call evaluation_ based on **ImplEstimator**:
 _src/main/java/org/alexgaas/estimate/EvalSelector.java_
 
-As been said, Bayesian Bandit stranger can be implemented over 3 steps: 
+As been said, Bayesian Bandit stranger can be implemented over 3 steps: choose arm, get score, memorize arm and score for next exploitation
 
-#### Step 1 - choose method randomly to start.
 For this implementation I've used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
 The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs.
 
@@ -48,6 +47,17 @@ ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
 stat_function(fun = dnorm)
 ```
 </details>
+
+Normal distribution for **Aho-Carasic** (100 repetitions) looks like:
+<img src="./plots/Aho-Corasick-Norm.png">
+
+Normal distribution **Horspool** (100 repetitions) looks like:
+<img src="./plots/Horspool-Norm.png">
+
+Normal distribution for **Wu-Manber** (100 repetitions) looks like:
+<img src="./plots/Wu-Manber-Norm.png">
+
+Process of evaluation as high level diagram is represented as further diagram: **WIP**
 
 ## Results
 Testing been performed on Britannica data corpus - https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/
@@ -69,28 +79,31 @@ _Text to search in_: **cpmxannualxconferencexannounce**
 <summary>Results:</summary>
 
 ```text
-[AhoCarasic]: 23.70 ms
-[Harspool]: 133.2 ms
-[WuManber]: 1.285 ms
-[AhoCarasic]: 3.032 ms
-[Harspool]: 73.04 ms
-[WuManber]: 1.258 ms
-[AhoCarasic]: 3.108 ms
-[Harspool]: 92.81 ms
-[WuManber]: 138.7 μs
-[AhoCarasic]: 932.0 μs
-[Harspool]: 84.87 ms
-[WuManber]: 838.4 μs
-[WuManber]: 173.0 μs
-[WuManber]: 864.9 μs
-[WuManber]: 141.5 μs
-[WuManber]: 539.8 μs
-[WuManber]: 154.0 μs
-[WuManber]: 1.801 ms
-[WuManber]: 93.04 μs
-[WuManber]: 1.387 ms
+[AhoCarasick]: 17.69 ms
+[Harspool]: 132.8 ms
+[WuManber]: 236.5 μs
+[AhoCarasick]: 6.580 ms
+[Harspool]: 76.71 ms
+[WuManber]: 976.8 μs
+[AhoCarasick]: 1.014 ms
+[Harspool]: 97.96 ms
+[WuManber]: 138.6 μs
+[AhoCarasick]: 915.5 μs
+[Harspool]: 86.38 ms
+[WuManber]: 988.8 μs
+[WuManber]: 930.8 μs
+[WuManber]: 171.5 μs
+[WuManber]: 2.282 ms
+[WuManber]: 754.3 μs
+[WuManber]: 1.378 ms
+[AhoCarasick]: 651.7 μs
+[WuManber]: 352.0 μs
+[WuManber]: 145.3 μs
 ```
 </details>
+
+Plot result (in nanoseconds):
+<img src="./plots/Plot_Result_1.png">
 
 _Test - search in one file (4MB of UTF text) by three patterns_:
 

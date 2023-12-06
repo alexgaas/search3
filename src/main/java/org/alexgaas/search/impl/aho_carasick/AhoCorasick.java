@@ -1,4 +1,4 @@
-package org.alexgaas.search.impl.aho_carasic;
+package org.alexgaas.search.impl.aho_carasick;
 
 import org.alexgaas.search.impl.Search;
 import org.javatuples.Pair;

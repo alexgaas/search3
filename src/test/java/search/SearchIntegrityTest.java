@@ -3,7 +3,7 @@ package search;
 import org.alexgaas.search.SearchProvider;
 import org.alexgaas.search.domain.SearchInput;
 import org.alexgaas.search.domain.SearchResult;
-import org.alexgaas.search.impl.aho_carasic.AhoCorasickSearch;
+import org.alexgaas.search.impl.aho_carasick.AhoCorasickSearch;
 import org.alexgaas.search.impl.horspool.HorspoolSearch;
 import org.alexgaas.search.impl.wu_manber.WuManberSearch;
 import org.junit.jupiter.api.Test;
