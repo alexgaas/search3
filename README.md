@@ -102,7 +102,7 @@ _Text to search in_: **cpmxannualxconferencexannounce**
 ```
 </details>
 
-Plot result (in nanoseconds):
+Plot result (in nanoseconds - 100 repetitions):
 <img src="./plots/Plot_Result_1.png">
 
 _Test - search in one file (4MB of UTF text) by three patterns_:
@@ -114,28 +114,31 @@ _Text to search in_: `src/test/resources/text/144133901.txt`
 <summary>Results:</summary>
 
 ```text
-[AhoCarasic]: 80.02 ms
-[Harspool]: 181.1 ms
-[WuManber]: 40.10 ms
-[AhoCarasic]: 25.17 ms
-[Harspool]: 133.1 ms
-[WuManber]: 30.16 ms
-[AhoCarasic]: 11.91 ms
-[Harspool]: 129.5 ms
-[WuManber]: 25.75 ms
-[AhoCarasic]: 8.383 ms
-[Harspool]: 124.3 ms
-[WuManber]: 18.21 ms
-[WuManber]: 15.62 ms
-[Harspool]: 126.4 ms
-[AhoCarasic]: 7.960 ms
-[WuManber]: 12.16 ms
-[WuManber]: 11.08 ms
-[WuManber]: 12.14 ms
-[WuManber]: 22.43 ms
-[WuManber]: 10.96 ms
+[AhoCarasick]: 72.96 ms
+[Harspool]: 198.9 ms
+[WuManber]: 40.73 ms
+[AhoCarasick]: 24.35 ms
+[Harspool]: 117.6 ms
+[WuManber]: 24.85 ms
+[AhoCarasick]: 12.54 ms
+[Harspool]: 120.0 ms
+[WuManber]: 23.52 ms
+[AhoCarasick]: 8.030 ms
+[Harspool]: 118.6 ms
+[WuManber]: 16.76 ms
+[AhoCarasick]: 8.512 ms
+[WuManber]: 12.23 ms
+[WuManber]: 10.19 ms
+[WuManber]: 10.07 ms
+[AhoCarasick]: 11.49 ms
+[WuManber]: 17.82 ms
+[AhoCarasick]: 8.976 ms
+[WuManber]: 12.61 ms
 ```
 </details>
+
+Plot result (in microseconds - 100 repetitions):
+<img src="./plots/Plot_Result_2.png">
 
 _Test - search in 20 files (5MB of UTF text each) by one pattern_:
 
@@ -146,28 +149,31 @@ _Text to search in folder_: `src/test/resources/text/`
 <summary>Results:</summary>
 
 ```text
-[AhoCarasic]: 691.9 ms
-[Harspool]: 53.64 ms
-[WuManber]: 1.987 s
-[AhoCarasic]: 353.8 ms
-[Harspool]: 34.65 ms
-[WuManber]: 1.537 s
-[AhoCarasic]: 336.9 ms
-[Harspool]: 32.41 ms
-[WuManber]: 1.443 s
-[AhoCarasic]: 355.4 ms
-[Harspool]: 28.66 ms
-[AhoCarasic]: 336.4 ms
-[WuManber]: 1.423 s
-[Harspool]: 42.18 ms
-[Harspool]: 33.66 ms
-[WuManber]: 1.484 s
-[Harspool]: 31.76 ms
+[AhoCarasick]: 665.0 ms
+[Harspool]: 69.08 ms
+[WuManber]: 2.050 s
+[AhoCarasick]: 503.4 ms
+[Harspool]: 37.27 ms
+[WuManber]: 1.527 s
+[AhoCarasick]: 322.9 ms
+[Harspool]: 30.27 ms
+[WuManber]: 1.513 s
+[AhoCarasick]: 324.4 ms
+[Harspool]: 40.07 ms
+[WuManber]: 2.175 s
 [Harspool]: 30.28 ms
-[Harspool]: 29.74 ms
-[Harspool]: 29.66 ms
+[Harspool]: 29.86 ms
+[AhoCarasick]: 325.8 ms
+[Harspool]: 30.34 ms
+[Harspool]: 27.80 ms
+[Harspool]: 28.01 ms
+[Harspool]: 29.55 ms
+[Harspool]: 28.07 ms
 ```
 </details>
+
+Plot result (in milliseconds - 100 repetitions):
+<img src="./plots/Plot_Result_3.png">
 
 _Test - search in 20 files (5MB of UTF text each) by ten patterns_:
 
@@ -178,34 +184,50 @@ _Text to search in folder_: `src/test/resources/text/`
 <summary>Results:</summary>
 
 ```text
-[AhoCarasic]: 6.069 s
-[Harspool]: 375.3 ms
-[WuManber]: 4.218 s
-[AhoCarasic]: 3.491 s
-[Harspool]: 312.8 ms
-[WuManber]: 3.684 s
-[AhoCarasic]: 3.466 s
-[Harspool]: 315.6 ms
-[WuManber]: 4.090 s
-[AhoCarasic]: 3.539 s
-[Harspool]: 309.3 ms
-[WuManber]: 3.415 s
-[WuManber]: 3.718 s
-[AhoCarasic]: 3.628 s
-[Harspool]: 311.9 ms
-[Harspool]: 312.1 ms
-[WuManber]: 3.604 s
-[Harspool]: 310.9 ms
-[AhoCarasic]: 3.494 s
-[WuManber]: 3.546 s
+[AhoCarasick]: 5.083 s
+[Harspool]: 336.5 ms
+[WuManber]: 4.264 s
+[AhoCarasick]: 3.617 s
+[Harspool]: 280.7 ms
+[WuManber]: 5.649 s
+[AhoCarasick]: 3.754 s
+[Harspool]: 285.7 ms
+[WuManber]: 4.466 s
+[AhoCarasick]: 3.879 s
+[Harspool]: 276.9 ms
+[WuManber]: 4.371 s
+[Harspool]: 277.9 ms
+[AhoCarasick]: 3.460 s
+[Harspool]: 277.5 ms
+[AhoCarasick]: 3.509 s
+[Harspool]: 278.3 ms
+[Harspool]: 305.5 ms
+[Harspool]: 283.7 ms
+[Harspool]: 280.8 ms
 ```
 </details>
+
+Plot result (in milliseconds - 100 repetitions):
+<img src="./plots/Plot_Result_4.png">
 
 ## Summary of results
 
 **WIP**
 
 ## TODO
+- Batch execution / score
+
+Execution of batches (like use 10, 100, 1000, ... executions as one measurement) will make your score much more precision.
+Easiest way to make that working is just extend `ImplEstimator -> Element -> complete` as:
+```java
+void complete(double nanos, int items){
+    --running_count;
+    ++completed_count;
+    if (adjustedCount() > 0)
+        sum += nanos / items;
+}
+```
+
 - Time score (elapsed time)
 
 Calculated using **_Google Guava_** `Stopwatch`
