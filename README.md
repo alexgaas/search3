@@ -27,6 +27,10 @@ _src/main/java/org/alexgaas/estimate/ImplEstimator.java_
 - public class **EvalSelector** provides public _contract to call evaluation_ based on **ImplEstimator**:
 _src/main/java/org/alexgaas/estimate/EvalSelector.java_
 
+High level design of _EvalSelector_:
+
+<img src="./plots/high_level_design.png" width="600" height="600">
+
 As been said, Bayesian Bandit stranger can be implemented over 3 steps: choose arm, get score, memorize arm and score for next exploitation
 
 For this implementation I've used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
@@ -215,9 +219,9 @@ Plot result (in milliseconds - 100 repetitions):
 **WIP**
 
 ## TODO
-- Batch execution / score
+- Batch execution
 
-Execution of batches (like use 10, 100, 1000, ... executions as one measurement) will make your score much more precision.
+Execution of batches (like use 10, 100, 1000, ... executions as one measurement) will make your score much more **precision**.
 Easiest way to make that working is just extend `ImplEstimator -> Element -> complete` as:
 ```java
 void complete(double nanos, int items){
@@ -242,7 +246,8 @@ but that could be more effective using **_rsdtsc_** for x86/x64 (look this packa
 or _cntvct_el0_ for arm64 M1/M2 (discussion is here - https://stackoverflow.com/questions/40454157/is-there-an-equivalent-instruction-to-rdtsc-in-arm)
 with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
 
-- For normal distribution of random numbers have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
+- As randomization process to choose arm have been used normal distribution. 
+For implementation of normal distribution function have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
 ```
 /*
     Pcg have been used for fastest random generation - see results on this Github page:
@@ -252,7 +257,7 @@ with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nal
 return mean() + PcgRSUFast.nextGaussian() * sigma();
 ```
 This port provides much better performance (three times faster) than `Random` class from standard JDK library, but could even
-faster using **JVMCI**.
+faster calling by **JVMCI** directly from C library instead of wrappper with JNI.
 
 ## License
 MIT - https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt

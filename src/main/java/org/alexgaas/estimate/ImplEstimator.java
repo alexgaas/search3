@@ -19,9 +19,9 @@ class ImplEstimator {
                 Cold invocations may provide incorrect stat, JVM have to be warmed up before accounting invocations
                 Don't take first invocations into account. However, you can increase invocation based on yours results.
              */
-            int NUM_INVOCATIONS_TO_THROW_OFF = 2;
+            int NUMBER_OF_INVOCATIONS_TO_THROW_OUT = 2;
 
-            return completed_count - NUM_INVOCATIONS_TO_THROW_OFF;
+            return completed_count - NUMBER_OF_INVOCATIONS_TO_THROW_OUT;
         }
 
         double mean() {
