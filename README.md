@@ -216,7 +216,24 @@ Plot result (in milliseconds - 100 repetitions):
 
 ## Summary of results
 
-**WIP**
+- `Bayesian Bandit` strategy is a great tool to build adaptive strategy to reach 
+the best score for different scenarios.
+
+- In appliance to evaluate performance of following algorithms:
+  - Aho-Carasic
+  - Horspool
+  - Wu-Manber
+
+As you may see from plots:
+- Horspool shows great performance with _straight search on huge string source_ (tested with about 100MB file).
+It is about 10-20 times better competitors. It's _especially effective to search by only one pattern_.
+- Wu-Manber shows great and very predictable performance on the small or middle size (about 5MB and less) string with using
+few patterns. It outperforms Horspool in this case in about 10 times in these conditions. 
+- Aho-Carasick also shows extremely great perfomance which matching to Wu-Manber on the small files. That might be even faster than
+Wu-Manber but may have less predictable performance.
+
+**Combining different implementations using `Bayesian Bandit` strategy we may reach adaptive control to reach
+best score for different patterns and data sources.**
 
 ## TODO
 - Batch execution
