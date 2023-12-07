@@ -1,26 +1,25 @@
 # search3
 Implementation of evaluation with Bayesian Bandit strategy for dynamic identification 
-of the best variant based on Gaussian randomization process for reasonable number of 
+of the best variant based on Gaussian randomization process based on the reasonable number of 
 exploration attempts in order to search for the optimal score.
 
-`Bayesian Bandit` strategy can be simply defined with three bullet points:
-- choose arm
-- get score
-- memorize arm and score for next exploitation
+The Bayesian Bandit strategy can be succinctly encapsulated in three key steps:
+- Select an arm.
+- Obtain the associated score.
+- Memorize the arm and score for subsequent exploitation.
 
-For exploration have been used strategy to measure score (best time) 
-of search by pattern based on following algorithms:
-- **Aho-Carasic**
-- **Horspool**
-- **Wu-Manber**
+For exploration have been used strategy to measure score (best time) of search by pattern, based on following algorithms:
+- Aho-Carasick
+- Horspool
+- Wu-Manber
 
-Search algorithms have been implemented manually without any third-party library.
+_Note 1: Search algorithms have been implemented manually without any third-party library._
 
-`Bayesian Bandit` strategy explanation and exploration results are presented in `Explanation` and `Results` 
-sections accordingly.
+_Note 2: Bayesian Bandit strategy explanation and exploration results are presented in `Explanation` and `Results` 
+sections accordingly._
 
 ## Explanation
-Score evaluation implementation located in package `src/main/java/org/alexgaas/estimate`:
+Score evaluation implementation is located in the package `src/main/java/org/alexgaas/estimate`:
 
 - internal class **ImplEstimator** which performs _select / complete / emplace_ operations:
 _src/main/java/org/alexgaas/estimate/ImplEstimator.java_
@@ -31,9 +30,7 @@ High level design of _EvalSelector_:
 
 <img src="./plots/high_level_design.png" width="600" height="600">
 
-As been said, Bayesian Bandit stranger can be implemented over 3 steps: choose arm, get score, memorize arm and score for next exploitation
-
-For this implementation I've used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
+For this implementation have been used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
 The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs.
 
 Simplest plot for a normal distribution looks like:
@@ -61,7 +58,20 @@ Normal distribution **Horspool** (100 repetitions) looks like:
 Normal distribution for **Wu-Manber** (100 repetitions) looks like:
 <img src="./plots/Wu-Manber-Norm.png">
 
-Process of evaluation as high level diagram is represented as further diagram: **WIP**
+If we combine normal distribution for 3 both we will get following plot (100 repetitions for small string and 2 patterns):
+<img src="./plots/Combined-Norm.png">
+
+Normal distribution plot might be great indicator how predictable invocation and score consumption for different datasets.
+
+Also, as result of research have been noted and implemented following:
+- Cold invocations may provide incorrect stat, JVM have to be warmed up before accounting invocations
+  Don't take first invocations into account. However, _you can increase invocation based on yours result expectations_.
+Look on the `class ImplEstimator -> class Element -> int NUMBER_OF_INVOCATIONS_TO_THROW_OUT = 2` and adjust it in according particular results.
+- For better convergence, I don't use proper estimate of Apache common math functions. Must to eventually separate between two algorithms even in case,
+when there is no statistical significant difference between them.
+Look on the `class ImplEstimator -> class Element -> double sigma()`
+- If there is a variant with not enough statistics, I always choose it. And in that case _prefer variant with lesser number of invocations_.
+  Look on the `class ImplEstimator -> class Element -> double sample()`
 
 ## Results
 Testing been performed on Britannica data corpus - https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/
@@ -216,23 +226,19 @@ Plot result (in milliseconds - 100 repetitions):
 
 ## Summary of results
 
-- `Bayesian Bandit` strategy is a great tool to build adaptive strategy to reach 
-the best score for different scenarios.
+The Bayesian Bandit strategy stands out as an invaluable tool for constructing adaptive strategies, 
+adept at navigating diverse scenarios to attain the optimal score.
 
-- In appliance to evaluate performance of following algorithms:
-  - Aho-Carasic
-  - Horspool
-  - Wu-Manber
+Using implementation of this strategy to evaluate performance of following algorithms: Aho-Corasick, Horspool, Wu-Manber I got following results:
 
-As you may see from plots:
-- Horspool shows great performance with _straight search on huge string source_ (tested with about 100MB file).
-It is about 10-20 times better competitors. It's _especially effective to search by only one pattern_.
-- Wu-Manber shows great and very predictable performance on the small or middle size (about 5MB and less) string with using
-few patterns. It outperforms Horspool in this case in about 10 times in these conditions. 
-- Aho-Carasick also shows extremely great perfomance which matching to Wu-Manber on the small files. That might be even faster than
-Wu-Manber but may have less predictable performance.
+- Horspool demonstrates exceptional performance, particularly in straight searches on extensive string sources, such as a 100MB file. 
+It outperforms competitors by a notable margin, approximately 10-20 times faster. Its efficacy is particularly pronounced when searching with a single pattern.
+- Wu-Manber exhibits impressive and consistently predictable performance when applied to smaller or medium-sized strings, 
+typically around 5MB or less, especially when handling a limited number of patterns. In these conditions, it surpasses Horspool by a factor of approximately 10.
+- Aho-Corasick also showcases outstanding performance, comparable to Wu-Manber when applied to smaller files. 
+It may even surpass Wu-Manber in speed, albeit with potentially less predictable invocation based on the scoring system.
 
-**Combining different implementations using `Bayesian Bandit` strategy we may reach adaptive control to reach
+**Combining different implementations using `Bayesian Bandit` strategy provides effective adaptive control to achieve
 best score for different patterns and data sources.**
 
 ## TODO

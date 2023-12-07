@@ -25,8 +25,8 @@ public class EvalSelectorTest {
     private static EvalSelector selector;
 
     private static final Boolean SHOW_DISTRIBUTION_DATA = false;
-    private static final Boolean SHOW_STAT_DATA = false;
-    private static final Boolean SHOW_PLOT_DATA = true;
+    private static final Boolean SHOW_STAT_DATA = true;
+    private static final Boolean SHOW_PLOT_DATA = false;
 
 
     @BeforeAll
@@ -53,7 +53,7 @@ public class EvalSelectorTest {
         for(Map<Integer, Double> map: selector.GetSamplingList()){
             // to get sampling (as normal distribution) per search type
             if (SHOW_DISTRIBUTION_DATA) {
-                System.out.println(i++ + "\t" + map.get(0));
+                System.out.println(i++ + "\t" + Math.round(map.get(0)) + "\t" + Math.round(map.get(1)) + "\t" + Math.round(map.get(2)));
             }
         }
     }
@@ -133,7 +133,7 @@ public class EvalSelectorTest {
         }
 
         if (SHOW_PLOT_DATA) {
-            tableForPlot(info.getCurrentRepetition(), result, TimeUnit.MICROSECONDS);
+            tableForPlot(info.getCurrentRepetition(), result, TimeUnit.MILLISECONDS);
         }
 
         assertNotNull(result);
