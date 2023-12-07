@@ -18,6 +18,11 @@ _Note 1: Search algorithms have been implemented manually without any third-part
 _Note 2: Bayesian Bandit strategy explanation and exploration results are presented in `Explanation` and `Results` 
 sections accordingly._
 
+Also, there is alternative implementation of strategy with _Golang_ (built by me) could be found here:
+https://github.com/alexgaas/explore. That strategy uses simple fast hashing for randomization (faster than normal distribution) 
+what gives you more effective and predictable exploration mode results but requires setup active threshold to use constantly winning approach in the
+production systems. Normal distribution naturally can give a reliable estimate of their own uncertainty and do not need any active threshold counters.
+
 ## Explanation
 Score evaluation implementation is located in the package `src/main/java/org/alexgaas/estimate`:
 
