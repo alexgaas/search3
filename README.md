@@ -270,9 +270,7 @@ watch.stop();
 stat.Complete(id, watch.elapsed().getNano());
 ```
 what is great (in fact idiomatic) approach for any Java program,
-but that could be more effective using **_rsdtsc_** for x86/x64 (look this package here - https://github.com/dterei/gotsc as starting point) 
-or _cntvct_el0_ for arm64 M1/M2 (discussion is here - https://stackoverflow.com/questions/40454157/is-there-an-equivalent-instruction-to-rdtsc-in-arm)
-with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
+but that could be more effective using **_rsdtsc_** with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
 
 - As randomization process to choose arm have been used normal distribution. 
 For implementation of normal distribution function have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
