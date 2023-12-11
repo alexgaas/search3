@@ -3,7 +3,7 @@ Implementation of evaluation with Bayesian Bandit strategy for dynamic identific
 of the best variant based on Gaussian randomization process based on the reasonable number of 
 exploration attempts in order to search for the optimal score.
 
-The Bayesian Bandit strategy can be succinctly encapsulated in three key steps:
+The Bayesian Bandit strategy can be briefly encapsulated in three key steps:
 - Select an arm.
 - Obtain the associated score.
 - Memorize the arm and score for subsequent exploitation.
@@ -18,10 +18,12 @@ _Note 1: Search algorithms have been implemented manually without any third-part
 _Note 2: Bayesian Bandit strategy explanation and exploration results are presented in `Explanation` and `Results` 
 sections accordingly._
 
-Also, there is alternative implementation of strategy with _Golang_ (built by me) could be found here:
-https://github.com/alexgaas/explore. That strategy uses simple fast hashing for randomization (faster than normal distribution) 
-what gives you more effective and predictable exploration mode results but requires setup active threshold to use constantly winning approach in the
-production systems. Normal distribution naturally can give a reliable estimate of their own uncertainty and do not need any active threshold counters.
+Additionally, an alternative implementation of the strategy in Golang is available at https://github.com/alexgaas/explore. 
+This implementation employs a simple and fast hashing technique for randomization, surpassing the speed of normal 
+distribution methods. This approach results in more effective and predictably explorative outcomes. 
+However, it necessitates the setup of an active threshold to consistently leverage the winning approach in production systems. 
+In contrast, the normal distribution inherently provides a reliable estimate of its own uncertainty and does not require 
+active threshold counters.
 
 ## Explanation
 Score evaluation implementation is located in the package `src/main/java/org/alexgaas/estimate`:
@@ -35,7 +37,7 @@ High level design of _EvalSelector_:
 
 <img src="./plots/high_level_design.png" width="600" height="600">
 
-For this implementation have been used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
+(As been said) For this implementation have been used **Gaussian Random Number Generator** (also known as normal distribution) from PCG library (library - https://www.pcg-random.org/download.html, JVM wrapper - https://github.com/KilianB/pcg-java). 
 The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs.
 
 Simplest plot for a normal distribution looks like:
