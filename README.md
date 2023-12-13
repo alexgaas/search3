@@ -274,18 +274,5 @@ stat.Complete(id, watch.elapsed().getNano());
 what is great (in fact idiomatic) approach for any Java program,
 but that could be more effective using **_rsdtsc_** with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
 
-- As randomization process to choose arm have been used normal distribution. 
-For implementation of normal distribution function have been used JNI port of PCG C implementation - https://github.com/KilianB/pcg-java
-```
-/*
-    Pcg have been used for fastest random generation - see results on this Github page:
-    https://github.com/KilianB/pcg-java
-    (or just use Random() from standard lib if performance does not matter to you)
- */
-return mean() + PcgRSUFast.nextGaussian() * sigma();
-```
-This port provides much better performance (three times faster) than `Random` class from standard JDK library, but could even
-faster calling by **JVMCI** directly from C library instead of wrappper with JNI.
-
 ## License
 MIT - https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt
