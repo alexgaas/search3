@@ -262,17 +262,5 @@ void complete(double nanos, int items){
 }
 ```
 
-- Time score (elapsed time)
-
-Calculated using **_Google Guava_** `Stopwatch`
-```
-Stopwatch watch = Stopwatch.createStarted();
-...
-watch.stop();
-stat.Complete(id, watch.elapsed().getNano());
-```
-what is great (in fact idiomatic) approach for any Java program,
-but that could be more effective using **_rsdtsc_** with **JVMCI** (see amazing **_nalim_** example - https://github.com/apangin/nalim).
-
 ## License
 MIT - https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt
